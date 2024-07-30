@@ -318,6 +318,52 @@ effective or pretty fucking useless.
 	desc = "Makes you nigh-invisible to the naked eye for a short period of time. \
 			Lasts indefinitely in darkness, but will not recharge unless inactive."
 	actions_types = list(/datum/action/item_action/stealth_mode/weaker)
+/obj/item/shadowcloak/proc/Activate(mob/living/carbon/human/user)
+	if(!user)
+		return
+
+	to_chat(user, span_notice("You activate [src]."))
+	src.user = user
+	START_PROCESSING(SSobj, src)
+	on = TRUE
+
+/obj/item/shadowcloak/proc/Deactivate()
+	to_chat(user, span_notice("You deactivate [src]."))
+	STOP_PROCESSING(SSobj, src)
+	if(user)
+		user.alpha = initial(user.alpha)
+
+	on = FALSE
+	user = null
+
+/obj/item/shadowcloak/dropped(mob/user)
+	..()
+	if(user && user.get_item_by_slot(ITEM_SLOT_BELT) != src)
+		Deactivate()
+
+/obj/item/shadowcloak/process(seconds_per_tick)
+	if(user.get_item_by_slot(ITEM_SLOT_BELT) != src)
+		Deactivate()
+		return
+
+	var/turf/T = get_turf(src)
+	if(on)
+		var/lumcount = T.get_lumcount()
+
+		if(lumcount > 0.3)
+			charge = max(0, charge - 12.5 * seconds_per_tick)//Quick decrease in light
+
+		else
+			charge = min(max_charge, charge + 25 * seconds_per_tick) //Charge in the dark
+
+		animate(user,alpha = clamp(255 - charge,0,255),time = 10)
+
+/// Checks if a given atom is in range of a radio jammer, returns TRUE if it is.
+/proc/is_within_radio_jammer_range(atom/source)
+	for(var/obj/item/jammer/jammer as anything in GLOB.active_jammers)
+		if(IN_GIVEN_RANGE(source, jammer, jammer.range))
+			return TRUE
+	return FALSE
 
 /obj/item/jammer
 	name = "radio jammer"

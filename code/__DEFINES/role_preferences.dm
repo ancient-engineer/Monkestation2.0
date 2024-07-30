@@ -18,6 +18,8 @@
 #define ROLE_WIZARD "Wizard"
 #define ROLE_SPY "Spy"
 #define ROLE_CLOCK_CULTIST "Clock Cultist" //monkestation edit
+#define ROLE_OPFOR_CANDIDATE "OPFOR Candidate"
+#define ROLE_ASSAULT_OPERATIVE "Assault Operative"
 
 // Midround roles
 #define ROLE_ABDUCTOR "Abductor"
@@ -42,6 +44,7 @@
 #define ROLE_SPIDER "Spider"
 #define ROLE_WIZARD_MIDROUND "Wizard (Midround)"
 // monke midrounds
+#define ROLE_PLAGUERAT "Plague Rat"
 #define ROLE_CORTICAL_BORER "Cortical Borer"
 #define ROLE_DRIFTING_CONTRACTOR "Drifting Contractor"
 #define ROLE_FLORIDA_MAN "Florida Man"
@@ -133,6 +136,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_SPY = 0,
 	ROLE_CLOCK_CULTIST = 14,
 	ROLE_BLOODSUCKER = 0,
+	ROLE_ASSAULT_OPERATIVE = 14,
 
 	// Midround
 	ROLE_ABDUCTOR = 0,
@@ -157,6 +161,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_SPIDER = 0,
 	ROLE_WIZARD_MIDROUND = 14,
 //monkestation edit start
+	ROLE_PLAGUERAT = 0,
 	ROLE_CORTICAL_BORER = 0,  // Module ID: CORTICAL_BORERS
 	ROLE_DRIFTING_CONTRACTOR = 0,
 	ROLE_VAMPIRICACCIDENT = 0,
