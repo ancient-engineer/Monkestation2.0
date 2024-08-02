@@ -51,12 +51,9 @@
 	var/current_tongue = "Synth"
 	var/datum/action/innate/select_tongue/select_tongue
 	var/draw_length = 3
-
-/obj/item/organ/internal/tongue/robot/polyglot_voicebox/Initialize(mapload)
-	. = ..()
-	draw_length = rand(2, 6)
-	if(prob(10))
-		draw_length += 2
+	var/chattering = FALSE
+	var/phomeme_type = "sans"
+	var/list/phomeme_types = list("sans", "papyrus")
 
 /obj/item/organ/internal/tongue/robot/polyglot_voicebox/can_speak_language(language)
 	return ..()
@@ -100,6 +97,51 @@
 				else
 					new_message += message[i]
 			speech_args[SPEECH_MESSAGE] = new_message
+		if("Zombie")
+			var/message = speech_args[SPEECH_MESSAGE]
+			if(message[1] != "*")
+				if(!length(GLOB.english_to_zombie))
+					load_zombie_translations()
+
+			var/list/message_word_list = splittext(message, " ")
+			var/list/translated_word_list = list()
+			for(var/word in message_word_list)
+				word = GLOB.english_to_zombie[lowertext(word)]
+				translated_word_list += word ? word : FALSE
+
+			message = replacetext(message, regex(@"[eiou]", "ig"), "r")
+			message = replacetext(message, regex(@"[^zhrgbmna.!?-\s]", "ig"), "")
+			message = replacetext(message, regex(@"(\s+)", "g"), " ")
+
+			var/list/old_words = splittext(message, " ")
+			var/list/new_words = list()
+			for(var/word in old_words)
+				word = replacetext(word, regex(@"\lr\b"), "rh")
+				word = replacetext(word, regex(@"\b[Aa]\b"), "hra")
+				new_words += word
+
+			for(var/i in 1 to length(new_words))
+				new_words[i] = translated_word_list[i] ? translated_word_list[i] : new_words[i]
+
+			message = new_words.Join(" ")
+			message = capitalize(message)
+			speech_args[SPEECH_MESSAGE] = message
+		if("Alien")
+			var/datum/saymode/xeno/hivemind = speech_args[SPEECH_SAYMODE]
+			if(hivemind)
+				return
+
+			playsound(owner, SFX_HISS, 25, TRUE, TRUE)
+		if("Fly")
+			var/static/regex/fly_buzz = new("z+", "g")
+			var/static/regex/fly_buZZ = new("Z+", "g")
+			var/message = speech_args[SPEECH_MESSAGE]
+			if(message[1] != "*")
+				message = fly_buzz.Replace(message, "zzz")
+				message = fly_buZZ.Replace(message, "ZZZ")
+				message = replacetext(message, "s", "z")
+				message = replacetext(message, "S", "Z")
+			speech_args[SPEECH_MESSAGE] = message
 		else
 			return ..()
 
@@ -111,6 +153,20 @@
 /obj/item/organ/internal/tongue/robot/polyglot_voicebox/on_remove(mob/living/carbon/organ_owner, special)
 	. = ..()
 	select_tongue.Remove(organ_owner)
+
+/obj/item/organ/internal/tongue/robot/polyglot_voicebox/proc/add_word_to_translations(english_word, zombie_word)
+	GLOB.english_to_zombie[english_word] = zombie_word
+	GLOB.english_to_zombie[english_word + plural_s(english_word)] = zombie_word
+	GLOB.english_to_zombie[english_word + "ing"] = zombie_word
+	GLOB.english_to_zombie[english_word + "ed"] = zombie_word
+
+/obj/item/organ/internal/tongue/robot/polyglot_voicebox/proc/load_zombie_translations()
+	var/list/zombie_translation = strings("zombie_replacement.json", "zombie")
+	for(var/zombie_word in zombie_translation)
+		var/list/data = islist(zombie_translation[zombie_word]) ? zombie_translation[zombie_word] : list(zombie_translation[zombie_word])
+		for(var/english_word in data)
+			add_word_to_translations(english_word, zombie_word)
+	GLOB.english_to_zombie = sort_list(GLOB.english_to_zombie)
 
 /datum/action/innate/select_tongue
 	name = "Select tongue"
@@ -132,7 +188,13 @@
 		"Human" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tongue"),
 		"Lizard" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tonguelizard"),
 		"Snail" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tongue"),
-		"Cat" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tongue")
+		"Cat" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tongue"),
+		"Zombie" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tonguezombie"),
+		"Alien" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tonguexeno"),
+		"Bone" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tonguebone"),
+		"Bananium" = image(icon = 'icons/obj/weapons/horn.dmi', icon_state = "gold_horn"),
+		"Mush" = image(icon = 'icons/obj/hydroponics/seeds.dmi', icon_state = "mycelium-angel"),
+		"Fly" = image(icon = 'icons/obj/medical/organs/fly_organs.dmi', icon_state = "tongue")
 	)
 	var/obj/item/organ/internal/tongue/robot/polyglot_voicebox/polyglot_voicebox = owner.get_organ_slot(ORGAN_SLOT_TONGUE)
 	var/picked_tongue = show_radial_menu(owner, owner, possible_tongues, radius = 50, require_near = TRUE, tooltips = TRUE)
@@ -155,8 +217,24 @@
 		if("Human")
 			polyglot_voicebox.say_mod = "says"
 		if("Lizard")
+			draw_length = rand(2, 6)
+			if(prob(10))
+				draw_length += 2
 			polyglot_voicebox.say_mod = "hisses"
 		if("Snail")
 			polyglot_voicebox.say_mod = "says"
 		if("Cat")
 			polyglot_voicebox.say_mod = "meows"
+		if("Zombie")
+			polyglot_voicebox.say_mod = "moans"
+		if("Alien")
+			polyglot_voicebox.say_mod = "hisses"
+		if("Bone")
+			phomeme_type = pick(phomeme_types)
+			polyglot_voicebox.say_mod = "rattles"
+		if("Bananium")
+			polyglot_voicebox.say_mod = "honks"
+		if("Mush")
+			polyglot_voicebox.say_mod = "poofs"
+		if("Fly")
+			polyglot_voicebox.say_mod = "buzzes"
