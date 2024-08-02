@@ -145,7 +145,7 @@
 		if("oozeling")
 			polyglot_voicebox.say_mod = "blurbles"
 		if("ethereal")
-			polyglot_voicebox.say_mod = "beeps"
+			polyglot_voicebox.say_mod = "crackles"
 		if("monkey")
 			polyglot_voicebox.say_mod = "chimpers"
 		if("moth")
@@ -155,6 +155,6 @@
 		if("lizard")
 			polyglot_voicebox.say_mod = "hisses"
 		if("snail")
-			polyglot_voicebox.say_mod = "crackles"
+			polyglot_voicebox.say_mod = "says"
 		if("cat")
 			polyglot_voicebox.say_mod = "meows"
