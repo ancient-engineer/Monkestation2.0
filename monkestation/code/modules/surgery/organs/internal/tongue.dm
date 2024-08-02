@@ -230,7 +230,7 @@
 		if("Alien")
 			polyglot_voicebox.say_mod = "hisses"
 		if("Bone")
-			polyglot_voicebox.phomeme_type = pick(phomeme_types)
+			polyglot_voicebox.phomeme_type = pick(polyglot_voicebox.phomeme_types)
 			polyglot_voicebox.say_mod = "rattles"
 		if("Bananium")
 			polyglot_voicebox.say_mod = "honks"
