@@ -48,7 +48,7 @@
 	desc = "A voice synthesizer that allows you to emulate the tongues of other species."
 	say_mod = "beeps"
 	//The current tongue being emulated.
-	var/current_tongue = "synth"
+	var/current_tongue = "Synth"
 	var/datum/action/innate/select_tongue/select_tongue
 	var/draw_length = 3
 
@@ -63,9 +63,9 @@
 
 /obj/item/organ/internal/tongue/robot/polyglot_voicebox/modify_speech(datum/source, list/speech_args)
 	switch(current_tongue)
-		if("synth")
+		if("Synth")
 			speech_args[SPEECH_SPANS] |= SPAN_ROBOT
-		if("arachnid")
+		if("Arachnid")
 			var/static/regex/fly_buzz = new("z+", "g")
 			var/static/regex/fly_buZZ = new("Z+", "g")
 			var/message = speech_args[SPEECH_MESSAGE]
@@ -75,7 +75,7 @@
 				message = replacetext(message, "s", "z")
 				message = replacetext(message, "S", "Z")
 			speech_args[SPEECH_MESSAGE] = message
-		if("lizard")
+		if("Lizard")
 			var/static/regex/lizard_hiss = new("s+", "g")
 			var/static/regex/lizard_hiSS = new("S+", "g")
 			var/static/regex/lizard_kss = new(@"(\w)x", "g")
@@ -91,7 +91,7 @@
 				message = lizard_ecks.Replace(message, "eck[repeat_string(max(draw_length - 2, 1), "s")]$1")
 				message = lizard_eckS.Replace(message, "ECK[repeat_string(max(draw_length - 2, 1), "S")]$1")
 			speech_args[SPEECH_MESSAGE] = message
-		if("snail")
+		if("Snail")
 			var/new_message
 			var/message = speech_args[SPEECH_MESSAGE]
 			for(var/i in 1 to length(message))
@@ -115,24 +115,24 @@
 /datum/action/innate/select_tongue
 	name = "Select tongue"
 	desc = "Select a tongue to emulate with your polyglot voicebox"
-	button_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	button_icon = 'icons/obj/medical/organs/organs.dmi'
 	background_icon_state = "bg_revenant"
 	overlay_icon_state = "bg_revenant_border"
-	button_icon_state = "join"
+	button_icon_state = "tongue"
 
 /datum/action/innate/select_tongue/Activate()
 	//All possible tongues that can be emulated.
 	var/list/possible_tongues = list(
-		"synth"  = image(icon = 'monkestation/code/modules/smithing/icons/ipc_organ.dmi', icon_state = "cybertongue"),
-		"arachnid" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tongue"),
-		"oozeling" = image(icon = 'monkestation/icons/obj/medical/organs/organs.dmi', icon_state = "tongue_oozeling"),
-		"ethereal" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "electrotongue"),
-		"monkey" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tongue"),
-		"moth" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tongue"),
-		"human" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tongue"),
-		"lizard" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tonguelizard"),
-		"snail" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tongue"),
-		"cat" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tongue")
+		"Synth" = image(icon = 'monkestation/code/modules/smithing/icons/ipc_organ.dmi', icon_state = "cybertongue"),
+		"Arachnid" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tongue"),
+		"Oozeling" = image(icon = 'monkestation/icons/obj/medical/organs/organs.dmi', icon_state = "tongue_oozeling"),
+		"Ethereal" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "electrotongue"),
+		"Monkey" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tongue"),
+		"Moth" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tongue"),
+		"Human" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tongue"),
+		"Lizard" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tonguelizard"),
+		"Snail" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tongue"),
+		"Cat" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tongue")
 	)
 	var/obj/item/organ/internal/tongue/robot/polyglot_voicebox/polyglot_voicebox = owner.get_organ_slot(ORGAN_SLOT_TONGUE)
 	var/picked_tongue = show_radial_menu(owner, owner, possible_tongues, radius = 50, require_near = TRUE, tooltips = TRUE)
@@ -140,23 +140,23 @@
 		return
 	polyglot_voicebox.current_tongue = picked_tongue
 	switch(picked_tongue)
-		if("synth")
+		if("Synth")
 			polyglot_voicebox.say_mod = "beeps"
-		if("arachnid")
+		if("Arachnid")
 			polyglot_voicebox.say_mod = "chitters"
-		if("oozeling")
+		if("Oozeling")
 			polyglot_voicebox.say_mod = "blurbles"
-		if("ethereal")
+		if("Ethereal")
 			polyglot_voicebox.say_mod = "crackles"
-		if("monkey")
+		if("Monkey")
 			polyglot_voicebox.say_mod = "chimpers"
-		if("moth")
+		if("Moth")
 			polyglot_voicebox.say_mod = "flutters"
-		if("human")
+		if("Human")
 			polyglot_voicebox.say_mod = "says"
-		if("lizard")
+		if("Lizard")
 			polyglot_voicebox.say_mod = "hisses"
-		if("snail")
+		if("Snail")
 			polyglot_voicebox.say_mod = "says"
-		if("cat")
+		if("Cat")
 			polyglot_voicebox.say_mod = "meows"
