@@ -217,9 +217,9 @@
 		if("Human")
 			polyglot_voicebox.say_mod = "says"
 		if("Lizard")
-			draw_length = rand(2, 6)
+			polyglot_voicebox.draw_length = rand(2, 6)
 			if(prob(10))
-				draw_length += 2
+				polyglot_voicebox.draw_length += 2
 			polyglot_voicebox.say_mod = "hisses"
 		if("Snail")
 			polyglot_voicebox.say_mod = "says"
@@ -230,7 +230,7 @@
 		if("Alien")
 			polyglot_voicebox.say_mod = "hisses"
 		if("Bone")
-			phomeme_type = pick(phomeme_types)
+			polyglot_voicebox.phomeme_type = pick(phomeme_types)
 			polyglot_voicebox.say_mod = "rattles"
 		if("Bananium")
 			polyglot_voicebox.say_mod = "honks"
