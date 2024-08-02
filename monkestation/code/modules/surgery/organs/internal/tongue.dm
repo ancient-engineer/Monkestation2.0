@@ -43,24 +43,25 @@
 /obj/item/organ/internal/tongue/oozeling/get_possible_languages()
 	return ..() + /datum/language/slime
 
-/obj/item/organ/internal/tongue/synth/polyglot_voicebox
+/obj/item/organ/internal/tongue/robot/polyglot_voicebox
 	name = "polyglot voicebox"
 	desc = "A voice synthesizer that allows you to emulate the tongues of other species."
+	say_mod = "beeps"
 	//The current tongue being emulated.
 	var/current_tongue = "synth"
 	var/datum/action/innate/select_tongue/select_tongue
 	var/draw_length = 3
 
-/obj/item/organ/internal/tongue/synth/polyglot_voicebox/Initialize(mapload)
+/obj/item/organ/internal/tongue/robot/polyglot_voicebox/Initialize(mapload)
 	. = ..()
 	draw_length = rand(2, 6)
 	if(prob(10))
 		draw_length += 2
 
-/obj/item/organ/internal/tongue/synth/polyglot_voicebox/can_speak_language(language)
+/obj/item/organ/internal/tongue/robot/polyglot_voicebox/can_speak_language(language)
 	return ..()
 
-/obj/item/organ/internal/tongue/synth/polyglot_voicebox/modify_speech(datum/source, list/speech_args)
+/obj/item/organ/internal/tongue/robot/polyglot_voicebox/modify_speech(datum/source, list/speech_args)
 	switch(current_tongue)
 		if("synth")
 			speech_args[SPEECH_SPANS] |= SPAN_ROBOT
@@ -102,11 +103,11 @@
 		else
 			return ..()
 
-/obj/item/organ/internal/tongue/synth/polyglot_voicebox/on_insert(mob/living/carbon/organ_owner, special)
+/obj/item/organ/internal/tongue/robot/polyglot_voicebox/on_insert(mob/living/carbon/organ_owner, special)
 	. = ..()
 	select_tongue.Grant(organ_owner)
 
-/obj/item/organ/internal/tongue/synth/polyglot_voicebox/on_remove(mob/living/carbon/organ_owner, special)
+/obj/item/organ/internal/tongue/robot/polyglot_voicebox/on_remove(mob/living/carbon/organ_owner, special)
 	. = ..()
 	select_tongue.Remove(organ_owner)
 
@@ -132,7 +133,7 @@
 		"snail" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tongue"),
 		"cat" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tongue")
 	)
-	var/obj/item/organ/internal/tongue/synth/polyglot_voicebox/polyglot_voicebox = owner.get_organ_slot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/internal/tongue/robot/polyglot_voicebox/polyglot_voicebox = owner.get_organ_slot(ORGAN_SLOT_TONGUE)
 	var/picked_tongue = show_radial_menu(owner, owner, possible_tongues, radius = 50, require_near = TRUE, tooltips = TRUE)
 	if(!picked_tongue)
 		return
