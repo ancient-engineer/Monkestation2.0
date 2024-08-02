@@ -105,6 +105,7 @@
 
 /obj/item/organ/internal/tongue/robot/polyglot_voicebox/on_insert(mob/living/carbon/organ_owner, special)
 	. = ..()
+	select_tongue = new
 	select_tongue.Grant(organ_owner)
 
 /obj/item/organ/internal/tongue/robot/polyglot_voicebox/on_remove(mob/living/carbon/organ_owner, special)
