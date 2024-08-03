@@ -143,7 +143,7 @@
 				message = replacetext(message, "S", "Z")
 			speech_args[SPEECH_MESSAGE] = message
 		else
-			return ..()
+			return speech_args[SPEECH_MESSAGE]
 
 /obj/item/organ/internal/tongue/robot/polyglot_voicebox/on_insert(mob/living/carbon/organ_owner, special)
 	. = ..()
