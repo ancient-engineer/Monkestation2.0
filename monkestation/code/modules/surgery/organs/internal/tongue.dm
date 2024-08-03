@@ -132,6 +132,14 @@
 				return
 
 			playsound(owner, SFX_HISS, 25, TRUE, TRUE)
+		if("Bone")
+			if(chattering)
+				chatter(speech_args[SPEECH_MESSAGE], phomeme_type, source)
+			switch(phomeme_type)
+				if("sans")
+					speech_args[SPEECH_SPANS] |= SPAN_SANS
+				if("papyrus")
+					speech_args[SPEECH_SPANS] |= SPAN_PAPYRUS
 		if("Fly")
 			var/static/regex/fly_buzz = new("z+", "g")
 			var/static/regex/fly_buZZ = new("Z+", "g")
