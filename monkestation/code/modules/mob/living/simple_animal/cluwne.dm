@@ -28,7 +28,7 @@
 	name = newname
 	real_name = newname
 
-/mob/living/simple_animal/cluwne/emote(act, m_type = 1, message = null, intentional = FALSE)
+/mob/living/simple_animal/cluwne/emote(act, m_type, message, intentional)
 	if(intentional)
 		message = "makes a sad honk."
 		act = "me"
@@ -46,6 +46,6 @@
 	playsound(src, 'sound/items/bikehorn.ogg', 20, 2)
 	..()
 
-/mob/living/simple_animal/cluwne/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, filterproof = FALSE, message_range = 7, datum/saymode/saymode = null)
+/mob/living/simple_animal/cluwne/say(message, bubble_type, list/spans, sanitize, datum/language/language, ignore_spam, forced, filterproof, message_range, datum/saymode/saymode)
 	message = pick(speak)
 	..()
