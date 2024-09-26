@@ -528,3 +528,66 @@
   - admin: '"Get Server Logs" can now jump to a specific round ID.'
   - admin: '"Get Current/Server Logs (Debug)" can now download profiler logs, as users
       with the permission to use that can use the profiler anyways.'
+2024-09-24:
+  Absolucy:
+  - bugfix: Seedless now works for spliced plants.
+  - bugfix: Made the seed extractor UI a bit less laggy.
+  - bugfix: Fixed the Living Heart ritual deleting your old heart when replacing it
+      instead of having it dramatically burst out of your chest like it should.
+  - qol: The Living Heart ritual will now work if you don't have one at all for some
+      reason, in the same way that'd you use an organic heart in the ritual to replace
+      a cybernetic heart.
+  - qol: The Living Heart ritual, when putting a new heart into your chest, will now
+      heal the heart enough to be just under the "severe damage" threshold, if needed.
+  ancient-engineer:
+  - bugfix: fixed power gloves dusting you if the power was below 10 GWs instead of
+      greater then or equal to 10 GWs
+  flleeppyy:
+  - rscdel: qc some jukebox songs
+2024-09-25:
+  Absolucy, Kashargul:
+  - qol: Hides the delete button on the main chat tab.
+  - qol: You can now reorder chat tabs.
+  CannibalHunter:
+  - rscadd: Added new gravestone decor for mappers
+  - rscadd: Added several admin plushies to the monkeshop!
+  Gw0sty:
+  - rscadd: Adds syndicate boxes for revivers, anti-stun, and anti-drop cybernetics
+      with a cyberlink also.
+  - bugfix: Fixed the Nuclear and Assault Operatives cybernetics by giving them syndicate
+      box bundles instead
+  Shoddd:
+  - bugfix: Vine Tangle for Venus Human traps works again.
+  - rscadd: Vine Tangle heals Venus Human Traps.
+  TTNT789:
+  - rscadd: Eeble Plushie
+  Wisemonster:
+  - balance: Replaced the blueshield's security belt with a sligtly larger, empty
+      one that cannot hold batons. Moved their pepperspray to their locker.
+  - balance: rReduced the amount of scrubbers affected by the overflow event down
+      from 50% to 20%
+2024-09-26:
+  Absolucy:
+  - bugfix: Fixed some minor errors and bugs with bloodsuckers.
+  - rscdel: Changelings can no longer make flesh spiders.
+  - rscadd: Instead, changelings can now birth teratomas, monkeylike menaces with
+      the goal of fucking everything up!
+  - bugfix: Ensured some of the plant genes had proper icons in the Seed Extractor
+      UI.
+  AlbertNanotracen:
+  - bugfix: self respiration messages should no longer spam chat as often
+  Shoddd:
+  - rscadd: Ponys are now orderable from cargo
+  - rscadd: The ranger poncho is now purchable in the loadout menu for 5000 monkecoins
+  - rscadd: New Revolver and Lever action Rifle now orderable from cargo
+  TTNT789:
+  - bugfix: Eeble plushie now adds to loudout when bought (im stupid i know)
+  ThePooba:
+  - bugfix: gary doesnt get aa anymore
+  Wisemonster:
+  - bugfix: Fixed the doubled blueshields lockers on blueshift
+  - balance: Blueshields are now taken into account for spawning various storyteller
+      antag events.
+  flleeppyy:
+  - rscadd: If you are the chaplain, or have the Spiritual trait, you will be divinely
+      warned that it is almost time to go.
