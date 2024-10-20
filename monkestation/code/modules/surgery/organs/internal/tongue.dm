@@ -185,7 +185,7 @@
 	var/list/possible_tongues = list(
 		"Synth" = image(icon = 'monkestation/code/modules/smithing/icons/ipc_organ.dmi', icon_state = "cybertongue"),
 		"Arachnid" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tongue"),
-		"Oozeling" = image(icon = 'monkestation/icons/obj/medical/organs/organs.dmi', icon_state = "tongue_oozeling"),
+		"Jelly" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tongue"),
 		"Ethereal" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "electrotongue"),
 		"Monkey" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tongue"),
 		"Moth" = image(icon = 'icons/obj/medical/organs/organs.dmi', icon_state = "tongue"),
@@ -210,8 +210,8 @@
 			polyglot_voicebox.say_mod = "beeps"
 		if("Arachnid")
 			polyglot_voicebox.say_mod = "chitters"
-		if("Oozeling")
-			polyglot_voicebox.say_mod = "blurbles"
+		if("Jelly")
+			polyglot_voicebox.say_mod = "chirps"
 		if("Ethereal")
 			polyglot_voicebox.say_mod = "crackles"
 		if("Monkey")
