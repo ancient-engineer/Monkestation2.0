@@ -335,11 +335,7 @@
 	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, STATUS_EFFECT_TRAIT)
 	owner.adjustBruteLoss(-25)
 	owner.adjustFireLoss(-25)
-	owner.fully_heal(HEAL_CC_STATUS)
-	owner.bodytemperature = owner.get_body_temp_normal()
-	if(ishuman(owner))
-		var/mob/living/carbon/human/humi = owner
-		humi.set_coretemperature(humi.get_body_temp_normal())
+	owner.fully_heal(HEAL_CC_STATUS|HEAL_TEMP)
 	return TRUE
 
 /datum/status_effect/regenerative_core/on_remove()
@@ -480,7 +476,7 @@
 	owner.adjustFireLoss(-2 * seconds_per_tick, updating_health = FALSE)
 	owner.adjustOxyLoss(-4 * seconds_per_tick, updating_health = FALSE)
 	owner.stamina.adjust(4 * seconds_per_tick)
-	owner.adjust_bodytemperature(BODYTEMP_NORMAL, 0, BODYTEMP_NORMAL) //Won't save you from the void of space, but it will stop you from freezing or suffocating in low pressure
+	owner.adjust_bodytemperature(INFINITY, max_temp = owner.standard_body_temperature) //Won't save you from the void of space, but it will stop you from freezing or suffocating in low pressure
 
 
 /atom/movable/screen/alert/status_effect/nest_sustenance
@@ -517,7 +513,7 @@
 	owner.AddElement(/datum/element/forced_gravity, 0)
 	owner.AddElement(/datum/element/simple_flying)
 	owner.add_stun_absorption(source = id, priority = 4)
-	add_traits(list(TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_FREE_HYPERSPACE_MOVEMENT), MAD_WIZARD_TRAIT)
+	add_traits(list(TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_FREE_HYPERSPACE_MOVEMENT), id)
 	owner.playsound_local(get_turf(owner), 'sound/chemistry/ahaha.ogg', vol = 100, vary = TRUE, use_reverb = TRUE)
 	return TRUE
 
@@ -535,4 +531,4 @@
 	owner.RemoveElement(/datum/element/forced_gravity, 0)
 	owner.RemoveElement(/datum/element/simple_flying)
 	owner.remove_stun_absorption(id)
-	remove_traits(list(TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_FREE_HYPERSPACE_MOVEMENT), MAD_WIZARD_TRAIT)
+	owner.remove_traits(list(TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_FREE_HYPERSPACE_MOVEMENT), id)

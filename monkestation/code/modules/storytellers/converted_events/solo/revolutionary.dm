@@ -8,6 +8,7 @@
 	restricted_roles = list(
 		JOB_AI,
 		JOB_CAPTAIN,
+		JOB_BLUESHIELD,
 		JOB_CHIEF_ENGINEER,
 		JOB_CHIEF_MEDICAL_OFFICER,
 		JOB_CYBORG,
@@ -23,6 +24,7 @@
 	base_antags = 2
 	enemy_roles = list(
 		JOB_CAPTAIN,
+		JOB_BLUESHIELD,
 		JOB_DETECTIVE,
 		JOB_HEAD_OF_SECURITY,
 		JOB_SECURITY_OFFICER,
@@ -36,6 +38,7 @@
 	earliest_start = 0 SECONDS
 	weight = 3 //value was 3, we need to manually test if this works or not before allowing it normally
 	max_occurrences = 1
+	event_icon_state = "revolution"
 
 /datum/antagonist/rev/head/event_trigger
 	remove_clumsy = TRUE
